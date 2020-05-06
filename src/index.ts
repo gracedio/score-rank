@@ -72,7 +72,16 @@ function getFileData() {
       let separator = entry.indexOf("{");
       var score = String(entry.split(': ', 1));
       var val = entry.substring(separator);
-      scoreData.set(score, val);
+      var id = null;
+      try {
+        let obj = JSON.parse(val);
+        id = obj.id;
+      } catch(err) {
+        console.error(err);
+        id = null;
+      }
+      console.log(id);
+      scoreData.set(score, id);
     });
     response.on("close", () => {
       let keys = Array.from(scoreData.keys());
@@ -86,18 +95,16 @@ function getFileData() {
       var entries = new Array;
       for (let i = 0; i < n && i < keys.length; i++) {
         var score = keys[i];
-        var data = scoreData.get(score);
+        var id = scoreData.get(score);
         try {
-          var json = JSON.parse(data);
-          let id = json.id;
-          if (!id) throw `Formatting Error: Score's 'id' NOT present in JSON's Top Level`;
+          if (id == null) throw `Formatting Error: Score's 'id' NOT present in JSON's Top Level`;
           let entry = {
             "score": Number(score),
-            "id": json.id
+            "id": id
           }
           entries.push(entry);
         } catch (err) {
-          throw new Error(FORMAT_ERROR(score, data));
+          throw new Error(FORMAT_ERROR(score, id));
         }
       }
       const scoresRanked = JSON.stringify(entries);
