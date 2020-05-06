@@ -80,7 +80,6 @@ function getFileData() {
         console.error(err);
         id = null;
       }
-      console.log(id);
       scoreData.set(score, id);
     });
     response.on("close", () => {
