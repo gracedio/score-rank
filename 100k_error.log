@@ -1,0 +1,34 @@
+<--- Last few GCs --->
+
+[10754:0x110000000]    58888 ms: Mark-sweep 1295.2 (1456.6) -> 1295.1 (1456.6) MB, 21.6 / 0.0 ms  (average mu = 0.128, current mu = 0.031) allocation failure scavenge might not succeed
+[10754:0x110000000]    58912 ms: Mark-sweep 1295.1 (1456.6) -> 1295.1 (1456.6) MB, 23.4 / 0.0 ms  (average mu = 0.069, current mu = 0.003) allocation failure scavenge might not succeed
+
+
+<--- JS stacktrace --->
+
+==== JS stack trace =========================================
+
+    0: ExitFrame [pc: 0x1e63f57f9981]
+Security context: 0x3abc3b447801 <JSObject>
+    1: ondata [0x3abcc0ca3e99] [readline.js:~148] [pc=0x1e63f5762158](this=0x3abcc0ca3f51 <ReadStream map = 0x3abc71c56d11>,data=0x3abca1ae8da1 <Uint8Array map = 0x3abc71c51e59>)
+    2: emit [0x3abc3b461cd1] [events.js:~140] [pc=0x1e63f57f97d6](this=0x3abcc0ca3f51 <ReadStream map = 0x3abc71c56d11>,/* anonymous */=0x3abc3b45b6c9 <String[4]: data>)
+    3: argu...
+
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+ 1: 0x10003b125 node::Abort() [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+ 2: 0x10003b32f node::OnFatalError(char const*, char const*) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+ 3: 0x1001a8e85 v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, bool) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+ 4: 0x1005742a2 v8::internal::Heap::FatalProcessOutOfMemory(char const*) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+ 5: 0x100576d75 v8::internal::Heap::CheckIneffectiveMarkCompact(unsigned long, double) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+ 6: 0x100572c1f v8::internal::Heap::PerformGarbageCollection(v8::internal::GarbageCollector, v8::GCCallbackFlags) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+ 7: 0x100570df4 v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+ 8: 0x10057d68c v8::internal::Heap::AllocateRawWithLigthRetry(int, v8::internal::AllocationSpace, v8::internal::AllocationAlignment) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+ 9: 0x10057d70f v8::internal::Heap::AllocateRawWithRetryOrFail(int, v8::internal::AllocationSpace, v8::internal::AllocationAlignment) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+10: 0x10054f055 v8::internal::Factory::NewRawOneByteString(int, v8::internal::PretenureFlag) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+11: 0x10054f271 v8::internal::Factory::NewStringFromUtf8(v8::internal::Vector<char const>, v8::internal::PretenureFlag) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+12: 0x1001cb228 v8::String::NewFromUtf8(v8::Isolate*, char const*, v8::NewStringType, int) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+13: 0x1000dfa46 node::StringDecoder::DecodeData(v8::Isolate*, char const*, unsigned long*) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+14: 0x1000e02e5 node::(anonymous namespace)::DecodeData(v8::FunctionCallbackInfo<v8::Value> const&) [/Users/peaslee/.nvm/versions/node/v10.15.0/bin/node]
+15: 0x1e63f57f9981
+16: 0x1e63f5762158
+sh: line 1: 10754 Abort trap: 6           node build/index.js
