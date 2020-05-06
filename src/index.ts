@@ -89,10 +89,10 @@ function getFileData() {
         var data = scoreData.get(score);
         try {
           var json = JSON.parse(data);
-          let id = String(json.id);
+          let id = json.id;
           if (!id) throw `Formatting Error: Score's 'id' NOT present in JSON's Top Level`;
           let entry = {
-            "score": score,
+            "score": Number(score),
             "id": json.id
           }
           entries.push(entry);
@@ -100,7 +100,7 @@ function getFileData() {
           throw new Error(FORMAT_ERROR(score, data));
         }
       }
-      const scoresRanked = JSON.parse(JSON.stringify(entries));
+      const scoresRanked = JSON.stringify(entries);
       console.log(`\n!---------------------- TOP ${n} SCORES ----------------------!\n`);
       console.log(scoresRanked);
       console.log('\nSuccessful Run: Error Code 0');
