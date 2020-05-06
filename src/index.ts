@@ -68,26 +68,29 @@ function getFileData() {
       input: instream
     });
     var response = readfile.on('line', function (line: any) {
-      var entry = line;
-      var score = String(line.split(": ", 1));
-      parseInt(score, 10);
-      var val = String(entry).substring(10);
+      var entry = String(line);
+      let separator = entry.indexOf("{");
+      var score = String(entry.split(': ', 1));
+      var val = entry.substring(separator);
       scoreData.set(score, val);
     });
     response.on("close", () => {
       let keys = Array.from(scoreData.keys());
 
       keys.sort(function(a,b) {
-        return a-b;
+        let i = parseInt(a, 10);
+        let j = parseInt(b, 10);
+        return i-j;
       }).reverse();
       
       var entries = new Array;
-      for (let i = 0; i < n; i++) {
+      for (let i = 0; i < n && i < keys.length; i++) {
         var score = keys[i];
         var data = scoreData.get(score);
         try {
           var json = JSON.parse(data);
-          if (!json.id) throw `Formatting Error: Score's 'id' NOT present in JSON's Top Level`;
+          let id = String(json.id);
+          if (!id) throw `Formatting Error: Score's 'id' NOT present in JSON's Top Level`;
           let entry = {
             "score": score,
             "id": json.id
