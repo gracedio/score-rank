@@ -15,7 +15,7 @@ Use a Package Manager to install further dependencies, I use `npm` (Node's Packa
 > npm install
 ``` 
 ## Using ScoreRank
-After installing all necessary dependencies using `npm install`, from within the `score-rank` repository:
+After installing all necessary dependencies using `npm install`, enter the following command within the `score-rank` repository:
 ```
 > npm start
 ```
