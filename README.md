@@ -1,5 +1,5 @@
 # ScoreRank
-Given a data file containing scores and proper JSON documents containing an 'id' key, return N highest scores ranked in descending order.
+Given a `.data` file containing scores and proper JSON documents containing an 'id' key, return N highest scores ranked in descending order.
 
 ## Dependencies
 Install the following: 
